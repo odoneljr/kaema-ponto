@@ -45,9 +45,8 @@ public class SecurityConfig {
 
                 // Define quais rotas sao livres e quais exigem autenticacao.
                 .authorizeHttpRequests(auth -> auth
-                        // O login e PUBLICO (senao ninguem conseguiria logar).
                         .requestMatchers("/auth/login").permitAll()
-                        // Qualquer outra rota exige estar autenticado.
+                        .requestMatchers("/eventos/**").permitAll()
                         .anyRequest().authenticated()
                 )
 

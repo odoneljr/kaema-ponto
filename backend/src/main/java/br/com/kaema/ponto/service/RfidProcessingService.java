@@ -1,5 +1,6 @@
 package br.com.kaema.ponto.service;
 
+import br.com.kaema.ponto.dto.LeituraEvento;
 import br.com.kaema.ponto.entity.RfidCode;
 import br.com.kaema.ponto.entity.User;
 import br.com.kaema.ponto.entity.WorkingHour;
@@ -34,17 +35,19 @@ public class RfidProcessingService {
     private final RfidCodeRepository rfidCodeRepository;
     private final UserRepository userRepository;
     private final WorkingHourRepository workingHourRepository;
+    private final SseService sseService;
 
-    // Tempo minimo entre batidas (vem do application.properties / .env).
     @Value("${ponto.debounce-minutos}")
     private int debounceMinutos;
 
     public RfidProcessingService(RfidCodeRepository rfidCodeRepository,
                                  UserRepository userRepository,
-                                 WorkingHourRepository workingHourRepository) {
+                                 WorkingHourRepository workingHourRepository,
+                                 SseService sseService) {
         this.rfidCodeRepository = rfidCodeRepository;
         this.userRepository = userRepository;
         this.workingHourRepository = workingHourRepository;
+        this.sseService = sseService;
     }
 
     @Scheduled(fixedDelay = 2000)
@@ -69,7 +72,8 @@ public class RfidProcessingService {
 
         if (funcionarioOpt.isEmpty()) {
             log.warn("Tag {} NAO VINCULADA a nenhum funcionario.", codigoTag);
-            // TODO: SSE -> pop-up "cadastrar usuario"
+            sseService.enviarEvento("leitura", new LeituraEvento(
+                    "NAO_VINCULADA", codigoTag, null, null, null));
             return;
         }
 
@@ -112,7 +116,12 @@ public class RfidProcessingService {
 
         workingHourRepository.save(registro);
         log.info("Ponto registrado: {} as {}", funcionario.getName(), horaBatida);
-        // TODO: SSE -> pop-up com dados do funcionario + horario
+        sseService.enviarEvento("leitura", new LeituraEvento(
+                "VINCULADA",
+                leitura.getCodigo(),
+                funcionario.getName(),
+                funcionario.getId(),
+                horaBatida.toString()));
     }
 
     // Retorna a hora do ultimo slot preenchido (ou null se nenhum).
