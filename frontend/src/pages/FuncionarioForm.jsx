@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import api from "../services/api";
 
 function FuncionarioForm() {
     const navigate = useNavigate();
 
+    const [searchParams] = useSearchParams();
+    const tagInicial = searchParams.get("tag") || "";
     // Um unico objeto com todos os campos do formulario.
     const [form, setForm] = useState({
         name: "",
@@ -20,7 +22,7 @@ function FuncionarioForm() {
         gestor: "",
         centrocusto: "",
         startDate: "",
-        tagRfid: "",
+        tagRfid: tagInicial,
     });
 
     const [erro, setErro] = useState("");
