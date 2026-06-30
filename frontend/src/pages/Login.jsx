@@ -3,10 +3,6 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
-/**
- * Tela de login. Envia email + senha ao backend (/auth/login).
- * Se as credenciais forem validas, guarda o token e vai para a Home.
- */
 function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -17,65 +13,82 @@ function Login() {
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
-        e.preventDefault(); // evita o recarregamento padrao do formulario
+        e.preventDefault();
         setErro("");
         setCarregando(true);
 
         try {
-            // Chama o endpoint POST /auth/login do backend.
             const resposta = await api.post("/auth/login", {
                 email: email,
                 password: senha,
             });
 
-            // resposta.data = { token, name, email, isAdmin }
             const { token, name, email: emailUsuario, isAdmin } = resposta.data;
-
-            // Guarda no contexto + localStorage.
             login(token, { name, email: emailUsuario, isAdmin });
-
-            // Redireciona para a Home.
             navigate("/home");
         } catch (err) {
-            // Credenciais invalidas ou erro de conexao.
-            setErro("Email ou senha invalidos.");
+            setErro("Email ou senha inválidos.");
         } finally {
             setCarregando(false);
         }
     }
 
     return (
-        <div>
-            <h1>Kaema Ponto</h1>
-            <h2>Entrar</h2>
-
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div className="min-h-screen flex items-center justify-center bg-neutral-100 px-4">
+            <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+                {/* Cabecalho */}
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold text-neutral-900">
+                        Kaema <span className="text-orange-500">Ponto</span>
+                    </h1>
+                    <p className="text-neutral-500 mt-1">Sistema de ponto eletrônico</p>
                 </div>
 
-                <div>
-                    <label>Senha</label>
-                    <input
-                        type="password"
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
-                        required
-                    />
-                </div>
+                {/* Formulario */}
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label className="block text-sm font-medium text-neutral-700 mb-1">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="w-full px-4 py-2.5 rounded-lg border border-neutral-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition"
+                            placeholder="seu@email.com"
+                        />
+                    </div>
 
-                {erro && <p style={{ color: "red" }}>{erro}</p>}
+                    <div>
+                        <label className="block text-sm font-medium text-neutral-700 mb-1">
+                            Senha
+                        </label>
+                        <input
+                            type="password"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            required
+                            className="w-full px-4 py-2.5 rounded-lg border border-neutral-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition"
+                            placeholder="••••••••"
+                        />
+                    </div>
 
-                <button type="submit" disabled={carregando}>
-                    {carregando ? "Entrando..." : "Entrar"}
-                </button>
-            </form>
+                    {erro && (
+                        <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">
+                            {erro}
+                        </p>
+                    )}
+
+                    <button
+                        type="submit"
+                        disabled={carregando}
+                        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2.5 rounded-lg transition disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                        {carregando ? "Entrando..." : "Entrar"}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
