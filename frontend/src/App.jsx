@@ -3,6 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import RotaProtegida from "./routes/RotaProtegida";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import RegistroTag from "./pages/RegistroTag";
 
 function App() {
     return (
@@ -21,6 +22,15 @@ function App() {
                         element={
                             <RotaProtegida>
                                 <Home />
+                            </RotaProtegida>
+                        }
+                    />
+
+                    <Route
+                        path="/registro-tag"
+                        element={
+                            <RotaProtegida>
+                                <RegistroTag />
                             </RotaProtegida>
                         }
                     />
