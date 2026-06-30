@@ -39,6 +39,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(org.springframework.security.config.Customizer.withDefaults())
+
                 // Desativa CSRF: nao usamos sessao/cookies, e sim token. CSRF e
                 // protecao para apps baseados em sessao; aqui nao se aplica.
                 .csrf(AbstractHttpConfigurer::disable)
