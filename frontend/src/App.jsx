@@ -4,6 +4,7 @@ import RotaProtegida from "./routes/RotaProtegida";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import RegistroTag from "./pages/RegistroTag";
+import Funcionarios from "./pages/Funcionarios";
 
 function App() {
     return (
@@ -31,6 +32,15 @@ function App() {
                         element={
                             <RotaProtegida>
                                 <RegistroTag />
+                            </RotaProtegida>
+                        }
+                    />
+
+                    <Route
+                        path="/funcionarios"
+                        element={
+                            <RotaProtegida>
+                                <Funcionarios />
                             </RotaProtegida>
                         }
                     />
