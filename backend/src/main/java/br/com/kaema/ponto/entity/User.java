@@ -47,4 +47,38 @@ public class User {
     // varchar(255), pode ser nulo, UNIQUE — a tag RFID vinculada ao funcionario
     @Column(name = "tag_rfid", length = 255, unique = true)
     private String tagRfid;
+
+    // === Campos do funcionario (adicionados na fase de cadastro) ===
+
+    // date NOT NULL — data de admissao
+    @Column(name = "start_date", nullable = false)
+    private java.time.LocalDate startDate;
+
+    // varchar(50) NOT NULL, UNIQUE
+    @Column(name = "cpf", nullable = false, length = 50, unique = true)
+    private String cpf;
+
+    // varchar(50) NOT NULL, UNIQUE
+    @Column(name = "rg", nullable = false, length = 50, unique = true)
+    private String rg;
+
+    // varchar(50) NOT NULL
+    @Column(name = "ctps", nullable = false, length = 50)
+    private String ctps;
+
+    // varchar(50) NOT NULL
+    @Column(name = "pispasep", nullable = false, length = 50)
+    private String pispasep;
+
+    // varchar(50) NOT NULL
+    @Column(name = "cargo", nullable = false, length = 50)
+    private String cargo;
+
+    // varchar(50) NOT NULL
+    @Column(name = "gestor", nullable = false, length = 50)
+    private String gestor;
+
+    // varchar(50) NOT NULL
+    @Column(name = "centrocusto", nullable = false, length = 50)
+    private String centrocusto;
 }

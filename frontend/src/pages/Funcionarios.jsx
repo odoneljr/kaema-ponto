@@ -50,6 +50,12 @@ function Funcionarios() {
                             {funcionarios.length} colaborador(es) cadastrado(s)
                         </p>
                     </div>
+                    <button
+                        onClick={() => navigate("/funcionarios/novo")}
+                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2.5 rounded-lg transition"
+                    >
+                        + Novo funcionário
+                    </button>
                 </div>
 
                 {/* Estados: carregando / erro / lista */}

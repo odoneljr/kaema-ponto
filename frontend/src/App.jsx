@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import RegistroTag from "./pages/RegistroTag";
 import Funcionarios from "./pages/Funcionarios";
+import FuncionarioForm from "./pages/FuncionarioForm";
 
 function App() {
     return (
@@ -41,6 +42,15 @@ function App() {
                         element={
                             <RotaProtegida>
                                 <Funcionarios />
+                            </RotaProtegida>
+                        }
+                    />
+
+                    <Route
+                        path="/funcionarios/novo"
+                        element={
+                            <RotaProtegida>
+                                <FuncionarioForm />
                             </RotaProtegida>
                         }
                     />
