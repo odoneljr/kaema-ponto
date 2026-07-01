@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
 
 /**
  * Repository da entity WorkingHour (tabela 'working_hours' - ponto diario).
@@ -17,4 +20,8 @@ public interface WorkingHourRepository extends JpaRepository<WorkingHour, Intege
     // UM registro por funcionario por dia. Por isso retorna Optional (um so).
     // Gera: SELECT * FROM working_hours WHERE user_id = ? AND work_date = ?
     Optional<WorkingHour> findByUserAndWorkDate(User user, LocalDate workDate);
+
+    // Retorna os IDs dos usuarios que tem registro de ponto na data dada.
+    @Query("SELECT DISTINCT w.user.id FROM WorkingHour w WHERE w.workDate = :data")
+    List<Integer> findUserIdsComPontoNaData(@Param("data") LocalDate data);
 }

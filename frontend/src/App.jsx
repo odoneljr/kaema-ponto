@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import RegistroTag from "./pages/RegistroTag";
 import Funcionarios from "./pages/Funcionarios";
 import FuncionarioForm from "./pages/FuncionarioForm";
+import Faltosos from "./pages/Faltosos";
 
 function App() {
     return (
@@ -51,6 +52,15 @@ function App() {
                         element={
                             <RotaProtegida>
                                 <FuncionarioForm />
+                            </RotaProtegida>
+                        }
+                    />
+
+                    <Route
+                        path="/faltosos"
+                        element={
+                            <RotaProtegida>
+                                <Faltosos />
                             </RotaProtegida>
                         }
                     />
