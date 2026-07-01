@@ -7,6 +7,7 @@ import RegistroTag from "./pages/RegistroTag";
 import Funcionarios from "./pages/Funcionarios";
 import FuncionarioForm from "./pages/FuncionarioForm";
 import Faltosos from "./pages/Faltosos";
+import RelatorioMensal from "./pages/RelatorioMensal";
 
 function App() {
     return (
@@ -61,6 +62,15 @@ function App() {
                         element={
                             <RotaProtegida>
                                 <Faltosos />
+                            </RotaProtegida>
+                        }
+                    />
+
+                    <Route
+                        path="/relatorio"
+                        element={
+                            <RotaProtegida>
+                                <RelatorioMensal />
                             </RotaProtegida>
                         }
                     />
