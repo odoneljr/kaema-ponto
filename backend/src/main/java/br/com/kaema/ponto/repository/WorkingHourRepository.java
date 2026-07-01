@@ -24,4 +24,9 @@ public interface WorkingHourRepository extends JpaRepository<WorkingHour, Intege
     // Retorna os IDs dos usuarios que tem registro de ponto na data dada.
     @Query("SELECT DISTINCT w.user.id FROM WorkingHour w WHERE w.workDate = :data")
     List<Integer> findUserIdsComPontoNaData(@Param("data") LocalDate data);
+
+    // Busca todos os registros de ponto de um usuario dentro de um intervalo
+    // de datas (inicio e fim do mes), ordenados por data.
+    List<WorkingHour> findByUserIdAndWorkDateBetweenOrderByWorkDate(
+            Integer userId, LocalDate inicio, LocalDate fim);
 }
