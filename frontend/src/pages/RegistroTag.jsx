@@ -113,8 +113,7 @@ function RegistroTag() {
                                     </button>
                                     <button
                                         onClick={() => {
-                                            // TODO: navegar para cadastro com a tag pre-preenchida
-                                            fecharPopup();
+                                            navigate(`/funcionarios/novo?tag=${evento.codigoTag}`);
                                         }}
                                         className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2.5 rounded-lg transition"
                                     >
