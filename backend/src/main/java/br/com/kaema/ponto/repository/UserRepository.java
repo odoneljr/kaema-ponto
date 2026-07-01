@@ -12,4 +12,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // NOVO: busca um funcionario pela tag RFID vinculada.
     // Gera: SELECT * FROM users WHERE tag_rfid = ?
     Optional<User> findByTagRfid(String tagRfid);
+
+    // Funcionarios ativos = sem data de desligamento (end_date NULL).
+    java.util.List<User> findByEndDateIsNull();
 }

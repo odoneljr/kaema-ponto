@@ -81,4 +81,8 @@ public class User {
     // varchar(50) NOT NULL
     @Column(name = "centrocusto", nullable = false, length = 50)
     private String centrocusto;
+
+    // date, pode ser nulo — data de desligamento. NULL = funcionario ativo.
+    @Column(name = "end_date")
+    private java.time.LocalDate endDate;
 }
